@@ -1,0 +1,17 @@
+/*标签初始化*/
+@import url("reset.css");
+
+/*主体设置*/
+@import url("main.css");
+
+/**/
+@import url("anmiation.css");
+
+/**/
+@import url("start.css");
+
+/*提示页面*/
+@import url("prompt.css");
+
+/*gameover*/
+@import url("gameOver.css");

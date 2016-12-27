@@ -1,0 +1,22 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html,body,.wrap{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+ul{
+	list-style-type: none;
+}
+.wrap{
+	overflow: hidden;
+}
+img{
+	border: 0;
+}
+span{
+	display: block;
+}
+

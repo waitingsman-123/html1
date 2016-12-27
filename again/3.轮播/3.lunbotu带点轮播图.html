@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#wrap {
+				width: 502px;
+				height: 402px;
+				background: transparent;
+				margin: 50px auto;
+				position: relative;
+				overflow: hidden;
+			}
+			
+			#run {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 9999px;
+				
+			}
+			#run div{
+				width: 500px;
+				height: 400px;
+				background: orange;
+				font: bold 60px/400px arial;
+				text-align: center;
+				float: left;
+				border:1px solid black
+			}
+			.point{
+				list-style: none;
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				margin-left: -95px;
+				
+			}
+			.point>li{
+				width: 30px;
+				height: 30px;
+				background: black;
+				border-radius:50% ;
+				float: left;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="run">
+				<div>1</div>
+				<div>2</div>
+				<div>3</div>
+				<div>4</div>
+				<div>5</div>
+			</div>
+			<ul class="point">
+				<li style="background: yellow;"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var  run=document.getElementById('run')
+		//var divs=document.querySelectorAll('#run>div')
+		var divs=run.getElementsByTagName('div')
+		var moveTimer=null
+		var lis=document.getElementsByTagName('li')
+		//1.
+		function move(){
+			var t=0
+			var d=30
+			var b=run.offsetLeft
+			var end=  index*divs[0].offsetWidth 
+			//难点
+			var c=end-b
+			clearInterval(moveTimer)
+			moveTimer=setInterval(function(){
+				t++
+				if(t>=d){
+					clearInterval(moveTimer)
+					moveTimer=null
+				}
+				run.style.left=Tween.Linear(t,b,c,d)+'px'
+			},30)
+		}
+		
+		
+		//2.
+		var index=0
+		var direction=false
+		setInterval(function(){
+			if(direction){
+				index++
+			}else{
+				index--
+			}
+			if(index==-4){
+				direction=true
+			}if(index==0){
+				direction=false
+			}
+		
+			move()
+			var count=-index
+			if(count==lis.length){
+				count=0
+			}
+		for(var i=0;i<lis.length;i++){
+			
+			if(count==i){
+				lis[i].style.background='yellow'
+			}else{
+				lis[i].style.background='black'
+			}
+		}
+		},1000)
+		
+		
+		
+	</script>
+	<script type="text/javascript" src="tween.js" ></script>
+
+</html>

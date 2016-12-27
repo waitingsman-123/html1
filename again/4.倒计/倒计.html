@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box {
+				height: 20px;
+				font: arial 20px/20px black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box"></div>
+	</body>
+	<script type="text/javascript">
+		var box = document.getElementById('box')
+		var t = new Date(2017, 00, 28, 0, 0, 0)
+		document.write(t + '<br>')
+		
+		
+		var timer=null
+
+
+		timer=setInterval(autoplay, 30)
+
+		function autoplay() {
+			var time = new Date()
+			var hour = time.getHours()
+			var minute = time.getMinutes()
+			var second = time.getSeconds()
+			var time_distance = t.getTime() - time.getTime()
+			//		console.log(time_distance)
+			days = Math.floor(time_distance / 86400000);
+			
+			time_distance = time_distance - days * 86400000;
+			hours = Math.floor(time_distance / 3600000);
+			time_distance = time_distance - hours * 3600000;
+
+			minutes = Math.floor(time_distance / 60000);
+			time_distance -= minutes * 60000;
+
+			seconds = Math.floor(time_distance / 1000);
+
+			var distance = "距离2017年1月28日还有" + days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
+
+			box.innerHTML = distance;
+
+		}
+	</script>
+
+</html>

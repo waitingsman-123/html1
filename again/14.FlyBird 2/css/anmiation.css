@@ -1,0 +1,65 @@
+.floor div{
+	-webkit-animation: floorMove 3s linear infinite;
+}
+
+@-webkit-keyframes floorMove{
+	from{
+		left: 0;
+	}
+	to{
+		left: -336px;
+	}
+}
+
+.st_logo{
+	-webkit-animation: logoScale 600ms linear infinite alternate;
+}
+
+@-webkit-keyframes logoScale{
+	from{
+		-webkit-transform: scale(0.8);
+	}
+	to{
+		-webkit-transform: scale(1);
+	}
+}
+
+.st_bird span, .bird span{
+	-webkit-animation: birdFly 300ms linear infinite alternate;
+}
+@-webkit-keyframes birdFly{
+	0%{
+		background-image: url(../img/bird/bird_b0.png);
+	}
+	50%{
+		background-image: url(../img/bird/bird_b1.png);
+	}
+	100%{
+		background-image: url(../img/bird/bird_b2.png);
+	}
+}
+
+.st_bird,.jump{
+	-webkit-animation: birdJump 3s linear infinite alternate;
+}
+@-webkit-keyframes birdJump{
+	0%{
+		top:220px;
+	}
+	100%{
+		top: 240px;
+	}
+}
+
+.pt_ready{
+	-webkit-animation: ptMove 1s linear 1;
+}
+
+@-webkit-keyframes ptMove{
+	from{
+		-webkit-transform: scale(0.8);
+	}
+	to{
+		-webkit-transform: scale(1);
+	}
+}

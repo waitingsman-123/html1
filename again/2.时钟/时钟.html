@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box {
+				width: 200px;
+				height: 200px;
+				border: 10px solid tan;
+				border-radius: 50%;
+				position: relative;
+			}
+			
+			#pointer>div {
+				position: absolute;
+				top: 00px;
+				left: 100px;
+			}
+			
+			#hour {
+				width: 6px;
+				height: 70px;
+				background-color: green;
+				opacity: 0.6;
+				transform-origin: center bottom;
+				margin-top: 30px;
+			}
+			
+			#minute {
+				width: 4px;
+				height: 90px;
+				background-color: blue;
+				opacity: 0.6;
+				transform-origin: center bottom;
+				margin-top: 10px;
+			}
+			
+			#second {
+				width: 2px;
+				height: 95px;
+				background-color: red;
+				opacity: 0.6;
+				transform-origin: center bottom;
+				margin-top: 5px;
+			}
+			
+			#number>div {
+				position: absolute;
+				top: 90px;
+				left: 5px;
+				width: 190px;
+				height: 22px;
+				line-height: 22px;
+			}
+			
+			#number span {
+				display: block;
+				width: 22px;
+				height: 22px;
+				text-align: center;
+				
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div id="number">
+				
+				<div><span>10</span></div>
+				<div><span>11</span></div>
+				<div><span>12</span></div>
+				<div><span>1</span></div>
+				<div><span>2</span></div>
+				<div><span>3</span></div>
+				<div><span>4</span></div>
+				<div><span>5</span></div>
+				<div><span>6</span></div>
+				<div><span>7</span></div>
+				<div><span>8</span></div>
+				<div><span>9</span></div>
+				
+			</div>
+			<div id="pointer">
+				<div id="hour"></div>
+				<div id="minute"></div>
+				<div id='second'></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var hour = document.getElementById("hour");
+		var minute = document.getElementById("minute");
+		var second = document.getElementById("second");
+		var numbers = document.getElementById('number')
+		var divs = numbers.getElementsByTagName("div")
+		var spans = numbers.getElementsByTagName("span")
+			//console.log(divs,spans)
+		var timer = null
+			//1.
+		function time() {
+			var time = new Date()
+			var hours = time.getHours()
+			var minutes = time.getMinutes()
+			var seconds = time.getSeconds()
+				//console.log(hours, minutes, seconds)
+			second.style.transform = 'rotate(' + seconds * 6 + 'deg)'
+			tempa = seconds * 6 / 360 * 6
+			minute.style.transform = 'rotate(' + (tempa + minutes * 6) + 'deg)'
+			tempb = minutes * 6 / 360 * 30
+			hour.style.transform = 'rotate(' + (tempb + hours * 30) + 'deg)'
+		}
+		//2.
+		function move() {
+			timer = setInterval(function() {
+				time()
+			}, 30)
+		}
+		//3.
+		function init() {
+			for(var i = 0; i < divs.length; i++) {
+				var temp = (i + 1) * 30
+					divs[i].style.transform='rotate('+temp+'deg)'
+				spans[i].style.transform = 'rotate(' +(- temp) + 'deg)'
+
+			}
+			move()
+		}
+
+		init()
+	</script>
+
+</html>

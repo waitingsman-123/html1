@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload=function(){
+				btn.onclick=function(){
+					//history.go(-1)
+					history.back()
+				}
+			}
+			
+		</script>
+		<style type="text/css">
+			#btn{
+				width: 97vw;
+				height: 30px;
+				padding-left:3vw ;
+				background: green;
+				position: absolute;
+				left: 3vw;
+				bottom: 0;
+				font: normal 20px/30px arial;
+				
+			}
+			.box{
+				width: 30vw;
+				height: 30vh;
+				background: red;
+				margin: 35vh auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			
+		</div>
+		<div id="btn">返回主页</div>
+	</body>
+	<script src="hammer.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//var box=document.getElementsByTagName('body')[0]
+		var box=document.querySelector('.box')
+		var scale=1
+		var endScale=0
+		var tempScale=0
+		var hammer=new Hammer(box)
+		//hammer.add(new hammer.Scale())
+		hammer.get('pinch').set({ enable: true });
+	
+		hammer.on('pinchstart',function(ev){
+			tempScale=ev.scale
+		})
+		hammer.on('pinch',function(ev){
+			scale=ev.scale-tempScale+endScale
+			if(scale<=0.5){
+				scale=0.5
+			}else if(scale>=2.5){
+				scale=2.5
+			}
+			box.style.webkitTransform="scale("+scale+")"
+		})
+		hammer.on('pinchend',function(ev){
+			endScale=scale
+		})
+		
+	</script>
+</html>

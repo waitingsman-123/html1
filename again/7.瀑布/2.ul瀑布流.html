@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			ul{
+				width: 200px;
+				margin-right: 10px;
+				float: left;
+			}
+			.li{
+				width: 200px;
+				background: pink;
+				font-size: 20px;
+				text-align: center;
+				margin-bottom: 10px;
+				list-style: none;
+			}
+			/*不需要定位了*/
+			
+		</style>
+	</head>
+	<body>
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+		<ul></ul>
+	</body>
+	<script type="text/javascript">
+		var uls=document.querySelectorAll('ul')
+		var count=1
+		
+		for(var i=0;i<200;i++){
+			var li=document.createElement('li')
+			li.className="li"
+			li.innerHTML=count++
+			li.style.height=parseInt(Math.random()*201+100)+'px'
+			var minIndex=0
+			for(var j=1;j<uls.length;j++){
+				if(uls[minIndex].offsetHeight>uls[j].offsetHeight){
+					minIndex=j
+				}
+			}
+			uls[minIndex].appendChild(li)
+		}
+		
+	</script>
+</html>

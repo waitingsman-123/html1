@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>JQ瀑布流</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body,
+			html {
+				width: 100%;
+				height: 100%;
+				/*①一直保有滚动占位*/
+				overflow: auto;
+			}
+			
+			a {
+				text-decoration: none;
+				color: black;
+				display: block;
+			}
+			
+			ul {
+				list-style: none;
+				display: block;
+			}
+			
+			.wrap {
+				/*②忽略滚动条，跳过html以窗口作为参考*/
+				width: 98vw;
+				/*margin: 10px auto;*/
+				position: absolute;
+				left: 1vw;
+				top: 10px;
+			}
+			
+			@media only screen and (min-width:860px ) {
+				.li {
+					width: 25%;
+				}
+			}
+			@media only screen and (min-width: 480px) and (max-width: 860px) {
+				.li {
+					width: 33.33%;
+				}
+			}
+			@media only screen and (max-width:480px ) {
+				.li {
+					width: 50%;
+				}
+			}
+			.li {
+				/*百分比是以盒子宽为基准*/
+				padding: 0.3%;
+				display: block;
+				/*怪盒子*/
+				box-sizing: border-box;
+				/*background-color: black;*/
+				/*float: left;*/
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			.li a {
+				width: 100%;
+				position: relative;
+			}
+			
+			.li img {
+				width: 100%;
+				/*inline-block默认会有一定边框*/
+				display: block;
+			}
+			
+			.li div {
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			.masking {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				background-color: rgba(0, 0, 0, 0.3);
+				display: none;
+			}
+			.masking .box {
+				border: 10px solid white;
+				position: absolute;
+			}
+			.masking .box img {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+		<script src="js/JQuery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<ul class="wrap">
+			<!--<li class="li">
+				<a href="javascript:">
+					<img src="img/small/1.jpg" />
+					<div></div>
+				</a>
+			</li>-->
+		</ul>
+		<div class="masking">
+			<div class="box"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// 列数数组，存储每列的高度
+		var colArr;
+		// 比例变量
+		var ratio;
+		
+		function imgClick(ev) {
+			// JQ取消冒泡
+			ev.stopPropagation();
+			// 处理响应式，点击背景滑动，滚动条等问题？？？
+			$("body").css("overflow", "visible");
+			// JQ对象 --> DOM对象
+//			$(".masking")[0].style.display = "block";
+			$(".masking").get(0).style.display = "block";
+			
+			var index = $(this).attr("index");
+			var url = 'img/big/'+index+'.jpg';
+			
+			var img = new Image();
+			img.src = url;
+			img.onload = function() {
+				var ableW = $(window).width() * 0.8;
+				var ableH = $(window).height() * 0.8;
+				var ableS = ableW / ableH;
+				var imgW = img.width;
+				var imgH = img.height;
+				var imgS = imgW / imgH;
+				// 设置宽高
+				if (ableS >= imgS) {
+					$(".box").height(ableH);
+					$(".box").width(ableH * imgS);
+				} else {
+					$(".box").width(ableW);
+					$(".box").height(ableW / imgS);
+				}
+				// 添加到DOM
+				$(".box").append($(img));
+				
+				// 设置方位
+				var l = ($(window).innerWidth() - $(".box").outerWidth()) / 2;
+				var t = ($(window).innerHeight() - $(".box").outerHeight()) / 2;
+				$(".box").css({
+					left: l,
+					top: t
+				});
+			}
+		}
+		
+		$(document).click(function() {
+			$(".box").empty();
+			$(".box").attr("style", "");
+			$("body").css("overflow", "auto");
+			$(".masking").css("display", "none");
+		})
+		
+		
+		function createLi(url, index) {
+			// 创建DOM结构中出现的元素节点
+			var li = $("<li class='li'></li>");
+			var a = $("<a href='javascript:'></a>");
+			var div = $("<div></div>");
+			var img = new Image();
+			img.draggable = false;
+			// 形参DOM树
+			a.append($(img));
+			a.append(div);
+			a.appendTo(li);
+			
+			// 给a添加点击方法(设置一个属性可以连接大小图)
+			a.attr("index", index);
+			a.click(imgClick);
+
+			// 获得图片资源并请求
+			img.src = url;
+			img.onload = function() {
+				img.onload = null;
+				// 请求得到的图片原宽高
+				// console.log(this.width, this.height)
+				// 等比缩放后的盒子高
+				var maxH = $('.wrap').width() * ratio / this.width * this.height
+					// 将li添加到DOM中，变可以拿到等比缩放后的盒子高，就是等比缩放的高
+				addLi(li);
+				var minH = $(img).height();
+				// 设置相关联元素盒子的高度
+//				 a.height(minH);
+//				 li.height(minH);
+			}
+		}
+
+		// 将li添加到DOM中
+		function addLi(li) {
+			
+			// 设置li的相关参数
+			// 获得最短列
+			var index = minIndex(); 
+			var l = $(".wrap").width() * ratio * index;
+			var t = colArr[index];
+			li.css({left: l, top: t});
+				
+			// 得到的参数li是JQ对象
+			li.appendTo($(".wrap"));
+			// 更新数组（可视高度）
+			colArr[index] += li.outerHeight();
+		}
+		
+		// 获得最短列的索引
+		function minIndex() {
+			var index = 0;
+			for (var i = 1; i < colArr.length; i++) {
+				if (colArr[index] > colArr[i]) {
+					index = i;
+				}
+			}
+			return index;
+		}
+		
+		// 屏幕尺寸发生变化会不断触发
+		$(window).resize(function() {
+			// 响应式布局判断
+			responseJudge();
+			
+			// 让蒙版消失
+			$(".masking").css("display", "none");
+			$("body").css("overflow", "auto");
+			
+			// 取出所有布局好的li
+			var lis = $('.li');
+			// 遍历更新布局
+			for (var i = 0; i < lis.length; i++) {
+				var index = minIndex(); 
+				var l = $(".wrap").width() * ratio * index;
+				var t = colArr[index];
+				lis.eq(i).css({left: l, top: t});
+				colArr[index] += lis.eq(i).outerHeight();
+			}
+		})
+
+		// DOM加载完毕加载
+		$(function() {
+			// 响应式布局判断
+			responseJudge();
+			for(var i = 1; i <= 39; i++) {
+				var url = 'img/small/' + i + '.jpg';
+				// 传i是让小图与大图建立某种关系
+				createLi(url, i)
+			}
+		})
+		
+		// 响应式布局判断
+		function responseJudge() {
+			var width = $(window).innerWidth();
+			if (width > 860) {
+				ratio = 1 / 4;
+				colArr = [0, 0, 0, 0];
+			} else if(width > 480) {
+				ratio = 1 / 3;
+				colArr = [0, 0, 0];
+			} else {
+				ratio = 1 / 2;
+				colArr = [0, 0];
+			}
+		}
+	</script>
+
+</html>

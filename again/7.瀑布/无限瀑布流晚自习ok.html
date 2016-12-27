@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.wrap{
+				width: 83vw;
+				position: relative;
+				margin: 10px auto;
+			}
+			.sub{
+				/*width: 20vw;*/
+				background: orange;
+				position: absolute;
+				top: 0;
+				left: 0;
+				
+			}
+			
+			           
+		</style>
+	</head>
+	<body>
+		<div class="wrap"> </div>
+	</body>
+	<script type="text/javascript">
+		var wrap=document.querySelector('.wrap')
+		var count=1
+		var arr=[0,0,0,0]
+		var h=0
+		function init(){
+			for(var i=0;i<20;i++){
+			createDiv()
+		}
+		}
+		//5.插入节点
+		function insertDiv(obj,a){
+			var insertTop=arr[a]
+			var insertLeft=a*(parseInt(obj.style.width)+2)
+			obj.style.top=insertTop+'px'
+			obj.style.left=insertLeft+'vw'
+			console.log(insertTop, insertLeft)
+			wrap.appendChild(obj)
+			
+			}
+		
+		//1.创建 div
+		function createDiv(){
+			var tempdiv=document.createElement('div')
+			setupAttribute(tempdiv)
+			var minTemp=mincol()
+			insertDiv(tempdiv,minTemp)
+			arr[minTemp]+=(h+10)
+			
+		}
+		//2.设置属性
+		function setupAttribute(obj){
+			obj.className='sub'
+			obj.style.width='20vw'
+			obj.innerHTML=count++
+			 h=randomNum()
+			obj.style.height=h+'px'
+		
+			}
+		//3.产生高度的随机函数
+		function randomNum(){
+			return parseInt(Math.random()*101+200)
+		}
+		//4.找出最短列
+		function mincol(){
+			var minTemp=0
+			for(var i=1;i<arr.length;i++){
+				if(arr[minTemp]>arr[i]){
+					minTemp=i
+				}
+				}
+			return minTemp;
+		}
+		window.onscroll=function(){
+			var cTop=document.documentElement.clientHeight
+			var oTop=arr[0]
+			var sTop=document.documentElement.scrollTop||document.body.scrollTop
+			if(sTop>=(oTop-10-cTop)){
+				init()
+			}
+			
+		}
+		
+		 init()
+	</script>
+</html>

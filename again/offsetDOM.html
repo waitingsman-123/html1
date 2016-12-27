@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.outer{
+				border: 10px solid black;
+				position: relative;
+			}
+			.inner{
+				width: 50px;
+				height: 50px;
+				background: red;
+				margin: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div   id="d" class="outer">
+			<div id="div" class="inner"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+
+		function fn(obj){
+			var l=0
+			var t=0
+			do{
+				l+=obj.offsetLeft
+				t+=obj.offsetTop
+				obj=obj.offsetParent
+				if(obj){
+					l+=obj.clientLeft
+					t+=obj.clientTop
+				}
+			}while(obj)
+			return {DOMleft:l,DOMtop:t}//返回对象
+		}
+		
+		
+	</script>
+</html>

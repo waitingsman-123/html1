@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				width: 100vw;
+				height: 100vh;
+			}
+			body{
+				
+			}
+			#div {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				background-color: royalblue;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div">
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		var div = document.getElementById("div");
+		var timer = null;
+		var l = 0;
+		var t = 0;
+		
+		var maxT = document.body.offsetHeight - div.offsetHeight;
+			var maxL = document.body.clientWidth - div.offsetWidth;
+		document.onkeydown = function(e) {
+			var ev = e || window.event;
+			
+		console.log(document.offsetHeight,document.offsetWidth,maxL,maxT)
+			console.log(e.keyCode);
+			clearTimeout(timer);
+			timer = setTimeout(function function_name() {
+				if(ev.keyCode == 38) {//上
+					if (t<=0) {
+						t = 0;
+					}
+					else{
+						t -= div.offsetHeight ;
+					}
+					
+					div.style.top =  t + "px";
+					
+				}
+				if(ev.keyCode == 40) {//下
+					if (t>=maxT) {
+						t = maxT;
+					}
+					else{
+						t += div.offsetHeight ;
+					}
+					div.style.top =  t + "px";
+				}
+				if(ev.keyCode == 37) {//左
+					if (l<=0) {
+						l = 0;
+					}
+					else{
+						l -= div.offsetWidth; 
+					}
+					
+					div.style.left = l + "px";
+				}
+				if(ev.keyCode == 39) {
+					if (l>=maxL) {
+						l = maxL;
+					}
+					else{
+						l += div.offsetWidth;
+					}
+					
+					div.style.left = l + "px";
+				}
+				console.log(div.style.top,div.style.left);
+			}, 1)
+
+		}
+	</script>
+
+</html>

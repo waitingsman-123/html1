@@ -1,0 +1,48 @@
+.start{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/*display: none;*/
+}
+.st_logo{
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	margin-left: -89px;
+}
+
+.st_logo span{
+	/*position: absolute;*/
+	width: 178px;
+	height: 48px;
+	background: url(../img/atlas.png) -702px -182px no-repeat;
+}
+
+.st_bird{
+	position: absolute;
+	top: 260px;
+	left: 50%;
+	margin-left: -17px;
+}
+.st_bird span{
+	width: 34px;
+	height: 24px;
+	background-image: url(../img/bird/bird_b0.png);
+}
+
+.st_btn {
+	position: absolute;
+	top: 420px;
+	left: 50%;
+	margin-left: -52px;
+}
+
+.st_btn span{
+	width: 104px;
+	height: 58px;
+	background-image: url(../img/other/start.png);
+}
+
+.st_btn:active{
+	opacity: 0.3;
+}

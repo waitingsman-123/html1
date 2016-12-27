@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+			.stage{
+				width: 100vw;
+				height: 100vh;
+				background: lightgray;
+				overflow: hidden;
+				position: relative;
+			}
+			.eye{
+				width: 40vw;
+				height: 80vh;
+				position: absolute;
+				left: 30vw;
+				bottom: 10vh;
+				background: indianred;
+			}
+			#btn{
+				width: 100%;
+				height: 20px;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				background: lightgreen;
+				font: normal 20px/20px arial;
+				text-align: center;
+			}
+			a{
+				width: 100%;
+				height:60px;
+				background: yellowgreen;
+				font-family:eyeFont;
+				font-size: 30px;
+				line-height: 60px;
+				text-align: center;
+				display: block;
+				border-top:2px dashed black ;
+				text-decoration: none;
+			}
+			@font-face {
+				font-family:eyeFont;
+				src: url(font/321impact.ttf);
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<div class="stage">
+			<div class="eye">
+				<a  href="box.html">box</a>
+				<a  href="drag.html">drag</a>
+				<a href="dragdrop.html">natDrop</a>
+				<a href="scaleJS.html">scaleJS</a>
+				<a href="scale.html">scale</a>
+			</div>
+			<a id="btn">btn</a>
+		</div>
+	</body>
+</html>

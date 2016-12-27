@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.stage{
+				position: relative;
+				width: 226px;
+				height: 220px;
+				overflow: hidden;
+				border: 3px solid black;
+				
+			}
+			.eye{
+				width: 9999px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 220px;
+			}
+			.eye div{
+				float: left;
+				width: 220px;
+				height: 220px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="stage">
+			<div class="eye">
+				<div><img src="img/1.jpg" alt="" /></div>
+				<div><img src="img/2.jpg" alt="" /></div>
+				<div><img src="img/3.jpg" alt="" /></div>
+				<div><img src="img/4.jpg" alt="" /></div>
+			</div>
+		</div>
+	</body>
+	<script src="JQuery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="3.轮播/tween.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var divs=document.querySelectorAll('.eye>div')
+		var eye=document.querySelector('.eye')
+		console.log(eye)
+		var timer=null
+		var m=0
+		var direction=false
+		function move(m){
+			var t=0
+			var b=eye.offsetLeft
+			
+			var c=end-b
+			var end=divs[0].offsetWidth*m//
+			var d=30
+			clearInterval(timer)
+			timer=setInterval(function(){
+				t++
+				if(t>=d){
+					clearInterval(timer)
+					 timer=null
+				}
+				eye.style.left=Tween.Linear(t,b,c,d)+'px'
+			},30)//
+			
+		}
+		
+		setInterval(function(m){
+			if(direction){
+				m++
+			}else{
+				m--
+			}
+			if(m==-3){
+				direction=true
+			}
+			if(m==0){
+				direction=false
+				
+			}
+			move()
+		},1500)
+		
+		
+		
+	</script>
+
+</html>

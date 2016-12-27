@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.wrap {
+				position: relative;
+			}
+			
+			ul {
+				list-style: none;
+				/*height: 40px;*/
+				margin-bottom: 60px;
+				/*width: 400px;*/
+				
+			}
+			ul:after{
+				content: '';
+				clear: both;
+				display: block;
+			}
+			
+			li {
+				width: 80px;
+				font-size: 30px;
+				line-height: 40px;
+				height:  40px;
+				text-align: center;
+				float: left;
+				
+				
+			}
+			
+			.slider {
+				width: 80px;
+				height: 3px;
+				background: orange;
+				position: absolute;
+				left: 0;
+				top: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<ul>
+				<li>第1栏</li>
+				<li>第2栏</li>
+				<li>第3栏</li>
+				<li>第4栏</li>
+				<li>第5栏</li>
+			</ul>
+			<div class="slider"></div>
+		</div>
+		<div class="wrap">
+			<ul>
+				<li>第1栏</li>
+				<li>第2栏</li>
+				<li>第3栏</li>
+				<li>第4栏</li>
+				<li>第5栏</li>
+			</ul>
+			<div class="slider"></div>
+		</div>
+		<div class="wrap">
+			<ul>
+				<li>第1栏</li>
+				<li>第2栏</li>
+				<li>第3栏</li>
+				<li>第4栏</li>
+				<li>第5栏</li>
+			</ul>
+			<div class="slider"></div>
+		</div>
+		<div class="wrap">
+			<ul>
+				<li>第1栏</li>
+				<li>第2栏</li>
+				<li>第3栏</li>
+				<li>第4栏</li>
+				<li>第5栏</li>
+			</ul>
+			<div class="slider"></div>
+		</div>
+		<div class="wrap">
+			<ul>
+				<li>第1栏</li>
+				<li>第2栏</li>
+				<li>第3栏</li>
+				<li>第4栏</li>
+				<li>第5栏</li>
+			</ul>
+			<div class="slider"></div>
+		</div>
+	</body>
+	<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var wraps = document.getElementsByClassName('wrap');
+		for(var i = 0; i < wraps.length; i++) {
+			move(i);
+		}
+
+		function move(count) {
+			var wrap = document.getElementsByClassName('wrap')[count];
+			var lis = wrap.getElementsByTagName('li');
+			var slider = wrap.getElementsByClassName('slider')[0];
+			var timer = null;
+			console.log(wrap, lis, slider);
+			for(var i = 0; i < lis.length; i++) {
+				lis[i].index = i;
+				lis[i].onmouseenter = function() {
+					var t = 0;
+					var d = 30;
+					var b = slider.offsetLeft;//错误点
+					var end = this.index * slider.offsetWidth;
+					var c = end - b;
+					clearInterval(timer);
+					timer = setInterval(function() {
+						t++;
+						if(t >= d) {
+							clearInterval(timer);
+							timer=null;
+						}
+						slider.style.left = Tween.Linear(t, b, c, d) + 'px';
+						console.log(t, b, c, d)
+					}, 30)
+				}
+			}
+		}
+	</script>
+
+</html>

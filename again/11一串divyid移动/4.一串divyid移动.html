@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 50px;
+				height: 50px;
+				background: yellow;
+				border-radius: 50%;
+				position: fixed;
+				left: 0;
+				top: 0;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div>1</div>
+		<div>2</div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div>10</div>
+	</body>
+	<script type="text/javascript">
+		var divs=document.querySelectorAll('div')
+		var timer=null
+		
+		document.onmousemove=function(ev){
+			var ev =ev||event
+			//第0个div永远跟着鼠标走
+			divs[0].style.left=ev.clientX-25+'px'
+			divs[0].style.top=ev.clientY-25+'px'
+			/*for(var i=1;i<divs.length;i++){
+				divs[i].style.left=divs[i-1].style.left
+				divs[i].style.top=divs[i-1].style.top
+			}*/
+			//第一次触发时，从第九个找第八个开始，直到找到第一个
+			//第一个找到第0个，动起来，第一次触发后就动两个div
+			//..第二个触发,会动第三个,以此类推，全动，但是只能有9个了
+			
+			//下一个触发，会找上一个，从后往前找，联动了
+			for(var i=divs.length-1;i>0;i--){
+				divs[i].style.left=divs[i-1].style.left
+				divs[i].style.top=divs[i-1].style.top
+			}
+			//每触发一次方法，均假设为最后一次触发方法，so开一个延时器，让all div 归位
+			//延时期间又触发，代表上一次非最后一次，就将上一次延时器清除
+			//该次是最后一次时，重新开启延时
+			//4.本次清除的是上一次的延时器，so变量得是同一个，so timer是全局变量
+			clearTimeout(timer)
+			timer=setTimeout(function(){
+				for(var i=1;i<divs.length;i++){
+				divs[i].style.left=divs[i-1].style.left
+				divs[i].style.top=divs[i-1].style.top
+			}
+				clearTimeout(timer)
+				timer=null
+			},1000/55)
+		}
+	</script>
+</html>

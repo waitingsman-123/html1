@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var num1=prompt('请输入')
+		var num2=prompt('请输入')
+		num1=parseFloat(num1)
+		num2=parseFloat(num2)
+		function add(){
+			return num1+num2
+		}
+		function jian(){
+			return num1+num2
+		}
+		function cheng(){
+			return num1*num2
+		}
+		function chu(){
+			return num1/num2
+		}
+		var fn=prompt('请输入运算符号如+')
+			switch(fn){
+				case '+':jisuan(add());break;
+				case '-':jisuan(jian);break;
+				case '*':jisuan(cheng);break;
+				case '/':jisuan(chu);break;
+				default:alert('错啦');break;
+			}
+		function jisuan(s){
+			var result=s(num1,num2)
+			alert(result)
+		}
+		
+		
+		
+	</script>
+</html>

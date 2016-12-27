@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#stage {
+				width: 750px;
+				height: 500px;
+				border: 1px solid red;
+				position: relative;
+				overflow: hidden;
+			}
+			
+			#box {
+				
+				height: 500px;
+				position: absolute;
+			}
+			
+			#box>div {
+				width: 750px;
+				height: 500px;
+				float: left;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="stage">
+			<div id="box">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+
+		</div>
+		<div id="button1">
+			<input type="button" id="last" value="上一张" />
+			<input type="button" id="next" value="下一张" />
+		</div>
+		<div id="button2">
+			<input type="button" id="1" value="第1张" />
+			<input type="button" id="2" value="第2张" />
+			<input type="button" id="3" value="第3张" />
+			<input type="button" id="4" value="第4张" />
+			<input type="button" id="5" value="第5张" />
+			<input type="button" id="6" value="第6张" />
+			<input type="button" id="7" value="第7张" />
+			<input type="button" id="8" value="第8张" />
+		</div>
+	</body>
+	<script type="text/javascript" src="tween.js">
+		
+	</script>
+	<script type="text/javascript">
+		var box = document.getElementById('box')
+		var divs = document.querySelectorAll('#box>div')
+		var last=document.getElementById('last')
+		var next=document.getElementById('next')
+		var buttons=document.querySelectorAll('#button2>input')
+		var timer=null
+		var m=0
+		box.style.width=divs[0].offsetWidth*divs.length+'px'
+		//0.
+		for(var i = 0; i < divs.length; i++) {
+			divs[i].style.backgroundImage = 'url(img/' + (i + 1) + '.jpg)'
+			buttons[i].onclick=function (){
+				m=this.id-1
+				changeImg()
+				resets()
+			}
+		}
+		
+		//1.
+		function changeImg(){
+			var t=0
+			var b=box.offsetLeft
+			var c=-m*divs[0].offsetWidth-b
+			var d=50
+			clearInterval(timer)
+			timer=setInterval(function(){
+				t++
+				if(t>=d){
+					clearInterval(timer)
+				}
+				box.style.left=Tween.Bounce.easeOut(t,b,c,d)+'px'
+			},30)
+		}
+		//2.
+		function nextImg(){
+			m++
+			if(m==divs.length){
+				m=0
+			}
+		}
+		//3.
+		var autoplay=setInterval(function(){
+			changeImg()
+			nextImg()
+		},3000)
+		//4.
+		function resets(){
+			clearInterval(autoplay)
+			autoplay=setInterval(function(){
+				changeImg()
+				nextImg()
+			},3000)
+		}
+		//5.
+		function nexts(){
+			next.onclick=function(){
+				nextImg()
+				changeImg()
+				resets()
+			}
+			last.onclick=function(){
+				m--
+				if(m<0){
+					m=divs.length-1
+				}
+				changeImg()
+				resets()
+			}
+		}
+		
+		nexts()
+		
+		
+		
+	</script>
+
+</html>

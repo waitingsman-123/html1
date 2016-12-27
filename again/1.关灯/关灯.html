@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="{CHARSET}">
+		<title>关灯1028</title>
+		<style type="text/css">
+			#box {
+				width: 335px;
+				height: 335px;
+			}
+			
+			#box>div {
+				width: 65px;
+				height: 65px;
+				background: yellow;
+				border: 1px solid white;
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	var lights=document.querySelectorAll('#box>div')
+	console.log(lights)
+	//1.
+	function init(){
+		for(var i=0;i<lights.length;i++){
+		lights[i].style.backgroundImage='url(on.jpg)'
+		lights[i].index=i+1
+		lights[i].onclick=eleClick
+		}
+	}
+	//2.
+	function changeImg(obj){
+		var img=obj.style.backgroundImage
+		if(img.match('on')){
+			obj.style.backgroundImage="url(off.jpg)"
+		}else{
+			obj.style.backgroundImage="url(on.jpg)"
+		}
+	}
+	//3.
+	function eleClick(){
+		var index=this.index
+		changeImg(this)
+		if(index>5){
+			changeElement(index,-5)
+		}
+		if(index<21){
+			changeElement(index,5)
+		}
+		if(index%5!=1){
+			changeElement(index,-1)
+		}
+		if(index%5!=0){
+			changeElement(index,1)
+		}
+		pass()
+	}
+	//4.
+	function changeElement(index,num){
+		var obj=document.querySelector('#box>div:nth-child('+(index+num)+')')
+		changeImg(obj)
+	}
+	//5.
+	function pass(){
+			var count=0
+			for(var i=0;i<lights.length;i++){
+				
+				if(lights[i].style.backgroundImage=='url("off.jpg")')
+				count++
+			}
+			if(count==25){
+				var timer=setTimeout(function(){
+					alert('pass');
+					clearTimeout(timer)
+				timer=null
+				init();
+				},30)
+				
+				
+				
+			}
+		}
+	init()
+	</script>
+
+</html>

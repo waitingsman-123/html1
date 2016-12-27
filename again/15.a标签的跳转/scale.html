@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			window.onload = function() {
+				btn.onclick = function() {
+					history.go(-1)
+				}
+			}
+		</script>
+		<style>
+			#btn {
+				width: 100%;
+				height: 20px;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				background: lightgreen;
+				font: normal 20px/20px arial;
+				text-align: center;
+			}
+			
+			#box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 100px;
+				top: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">scale单指缩小，双指放大</div>
+		<a id="btn">btn</a>
+	</body>
+	<script type="text/javascript">
+		var btn = document.getElementById('btn')
+		var box = document.getElementById('box')
+		var scalex=1
+		
+		box.ontouchstart=function(ev){
+			var ev=ev||event
+			if(ev.touches.length==2){
+				var finger=ev.touches[1]
+				scalex+=0.1
+			}
+			if(ev.touches.length==1){
+				var finger=ev.touches[0]
+				scalex-=0.1
+			}
+		}
+		box.ontouchmove=function(ev){
+			var ev=ev||event
+			if(ev.touches.length==2){
+				var finger=ev.touches[1]
+				if(scalex>=2.5){
+					scalex=2.5
+				}
+				box.style.webkitTransform="scale("+scalex+")"
+			}
+			if(ev.touches.length==1){
+				var finger=ev.touches[0]
+				if(scalex<=0.5){
+					scalex=0.5
+				}
+				box.style.webkitTransform="scale("+scalex+")"
+			}
+		}
+		
+		
+		
+	</script>
+</html>

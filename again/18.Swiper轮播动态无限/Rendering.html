@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Renferimg</title>
+		 <link rel="stylesheet" href="Swiper动态.css">
+		<script src="JQuery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	
+		
+		<style>
+   
+    html, body {
+        position: relative;
+        height: 100%;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+        
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    </style>
+		<script src="JQuery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		
+		
+		
+		 <!-- Swiper -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="banner/Banner (1).jpg"/></div>
+            <div class="swiper-slide"><img src="banner/Banner (2).jpg"/></div>
+            <div class="swiper-slide"><img src="banner/Banner (3).jpg"/></div>
+            
+        </div>
+       
+        <div class="swiper-pagination"></div>
+       
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+		
+		
+
+		<!--<div id="box">
+			<ul></ul>
+			<ul></ul>
+			<ul></ul>
+			<ul></ul>
+		</div>-->
+		
+		
+		
+	
+
+	</body>
+	<script src="Rendering.js" type="text/javascript" charset="utf-8"></script>
+	<script src="About.js" type="text/javascript" charset="utf-8"></script>
+	<script src="tween.js" type="text/javascript" charset="utf-8"></script>
+	<script src="shnngTitle.js" type="text/javascript" charset="utf-8"></script>
+	<script src="Swiper动态.js"></script>
+	<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    
+    
+    
+    
+    </script>
+	
+	
+
+</html>

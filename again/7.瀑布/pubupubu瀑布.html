@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box {
+				width: 1000px;
+				margin: 0 auto;
+			}
+			
+			ul {
+				float: left;
+				margin-left: 10px;
+				width: 200px;
+				list-style: none;
+			}
+			
+			.li {
+				width: 100%;
+				background: orange;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<ul></ul>
+			<ul></ul>
+			<ul></ul>
+			<ul></ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var uls = document.getElementsByTagName('ul') //数组
+		var li;
+		var box = document.getElementById('box')
+
+		var count = 1
+		
+
+		function wakaka() {
+			for(var i = 0; i < 20; i++) {
+				li = document.createElement('li')
+				li.className = 'li'
+				li.style.height = parseInt(Math.random() * 201 + 100) + 'px'
+				li.innerHTML = count++
+					minHeight()
+			}
+			
+		function minHeight() {
+			var temp = 0
+			for(var j = 1; j < uls.length; j++) {
+				if(uls[temp].offsetHeight > uls[j].offsetHeight) {
+					temp = j
+				}
+			}
+			uls[temp].appendChild(li)
+		}
+		}
+
+
+		window.onscroll = function() {
+			var cTop = document.documentElement.clientHeight
+			var oTop = uls[0].offsetHeight
+			var sTop = document.documentElement.scrollTop || document.body.scrollTop
+			if(sTop >= (cTop - oTop)){
+				if(count>=200){return}
+				wakaka()
+			}
+		}
+
+		wakaka()
+	</script>
+
+</html>

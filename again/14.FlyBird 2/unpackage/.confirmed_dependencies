@@ -1,0 +1,35 @@
+{
+	"index.html": {
+		"resources": [
+			"css/index.css",
+			"css/main.css",
+			"img/background.png",
+			"css/reset.css",
+			"js/index.js",
+			"img/atlas.png",
+			"img/bgDay.png",
+			"css/anmiation.css",
+			"img/floor.png",
+			"css/start.css",
+			"img/floor_1.png",
+			"img/other/floor_bg.png",
+			"img/other/floor.png",
+			"img/bird/bird_b0.png",
+			"img/bird/bird_b2.png",
+			"img/bird/bird_b1.png",
+			"img/other/start.png",
+			"css/prompt.css",
+			"font/321impact.ttf",
+			"img/other/ready.png",
+			"img/other/prompt.png",
+			"img/other/gameover.png",
+			"css/gameOver.css",
+			"img/other/ok.png",
+			"img/other/score.png",
+			"img/bound_up.png",
+			"img/bound_down.png",
+			"img/pipe/pipe_day_up.png",
+			"img/pipe/pipe_day_down.png"
+		]
+	}
+}

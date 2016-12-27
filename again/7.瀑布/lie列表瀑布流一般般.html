@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		*{
+				margin:0;
+				padding: 0;
+			}
+			#wrap {
+				width: 84vw;
+				margin: 0 auto;
+				height: 200px;
+				position: relative;
+			}
+			
+			ul {
+				margin-left: 1vw;
+				float: left;
+			}
+			
+			.li {
+				list-style-type: none;
+				width: 20vw;
+				font-size: 60px;
+				text-align: center;
+				font-size: 30px;
+				background-color: red;
+				}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<ul></ul>
+			<ul></ul>
+			<ul></ul>
+			<ul></ul>
+		</div>
+	</body>
+	<script>
+		var uls = document.querySelectorAll("#wrap>ul");
+		var arr=[]
+		var count = 1;
+
+		function init() {
+			for(var i = 0; i < 20; i++) {
+				//创建li
+				creatLi();
+			}
+		}
+		function saveUlsHeight() {
+			for(var i = 0; i < uls.length; i++) {
+				arr[i] = uls[i].offsetHeight;
+			}
+		}
+
+		//1.
+		function creatLi(){
+			var tempLi = document.createElement("li");
+			tempLi.className = "li";
+			tempLi.innerText = count++;
+			var rh = parseInt(Math.random() * 301 + 100);
+			tempLi.style.height = rh + "px";
+			tempLi.style.lineHeight = rh + "px";
+			var minIndex = getMinIndex();
+			insertLi(tempLi, minIndex);
+			load(tempLi);
+			uls[minIndex] += rh;
+		}
+		//2.
+		function getMinIndex() {
+			saveUlsHeight();
+			var minUlsIndex = 0;
+			for(var i = 0; i < uls.length; i++) {
+				if(arr[i] < arr[minUlsIndex]) {
+					minUlsIndex = i;
+				}
+			}
+			return minUlsIndex;
+		}
+		//3.
+		function insertLi(obj, minIndex) {
+			obj.style.marginBottom = "10px";
+			uls[minIndex].appendChild(obj);
+		}
+		
+		//4.
+		function load(obj) {
+			var num = 0; //不能设为全局变量
+			var timer = setInterval(function() {
+				num += parseInt(Math.random() * 5) + 1;
+				if(num >= 100) {
+					num = 100;
+					clearInterval(timer);
+				}
+				obj.innerHTML = num + "%";
+			}, 50)
+		}
+		init();
+
+		window.onscroll = function(){
+			var cTop = document.documentElement.clientHeight;
+			var oTop = arr[0]
+			var sTop = document.documentElement.scrollTop||document.body.scrollTop;
+			if(sTop >= oTop - cTop-10){
+				if ((count>200)) {return}
+				init();
+			}
+		}
+	</script>
+
+</html>

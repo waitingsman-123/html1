@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>陈威廷</title>
+		<style type="text/css">
+			#stage {
+				width: 802px;
+				min-height: 500px;
+				margin: auto;
+			}
+			
+			#eye {
+				width: 800px;
+				height: 350px;
+				border: 1px solid lightgray;
+			}
+			
+			#title {
+				width: 800px;
+				height: 50px;
+				line-height: 50px;
+				text-align: right;
+				background: url(img/xx.png) no-repeat 40px 0px;
+				background-size: 50px;
+				color: red;
+			}
+			
+			img {
+				width: 20px;
+				height: 20px;
+			}
+			
+			#box {
+				width: 700px;
+				height: 200px;
+				position: relative;
+				margin: auto;
+			}
+			
+			#textarea {
+				resize: none;
+				outline-color: red;
+				width: 660px;
+				height: 160px;
+				font-size: 20px;
+				padding: 20px;
+			}
+			
+			#span {
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+			}
+			
+			#delete {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				/*display: none;*/
+			}
+			
+			ul>li {
+				font-size: 020px;
+				list-style-type: none;
+				float: left;
+				display: block;
+				margin: 20px 15px;
+			}
+			
+			#button {
+				width: 80px;
+				height: 40px;
+				line-height: 30px;
+				font-size: 20px;
+				background: red;
+				margin: 10px 0px 0 160px;
+				outline-color: orange;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="stage">
+			<div id="eye">
+				<div id="title">置办年货省省省！红包在手年货无忧！ 点击领取年货红包&nbsp;&nbsp;热门微博&nbsp;&nbsp;</div>
+				<div id="box">
+					<textarea id="textarea" name="" rows="" cols=""></textarea>
+					<span id="span" style="display:block"></span>
+					<input type="button" name="delete" id="delete" value="X" />
+				</div>
+				<div id="bottom">
+					<ul>
+						<li><img src="img/wb1.png" />表情</li>
+						<li><img src="img/wb2.png" />图片</li>
+						<li><img src="img/wb3.png" />视频</li>
+						<li><img src="img/wb4.png" />微博</li>
+						<li><img src="img/wb5.png" />文章</li>
+					</ul>
+					<input type="button" name="button" id="button" value="发布" />
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//1.全局变量
+		function $(id) {
+			return document.getElementById(id)
+		}
+		var stage=$('stage')
+		var eye=$('eye')
+		var title = $("title")
+		var box=$('box')
+		$('buttom')
+		var buttons=$('button')
+		$('delete')
+		$('span')
+		var textareas = $('textarea')
+		var timer = null
+		var count = 140
+
+		//2.
+		function start() {
+			var time = new Date()
+			var year = time.getFullYear()
+			var month = time.getMonth()
+			var day = time.getDate()
+			var hour = time.getHours()
+			var minute = time.getMinutes()
+			var second = time.getSeconds()
+			if(month < 9) {
+				month = '0' + month
+			} else if(day < 10) {
+				day = '0' + day
+			} else if(hour < 10) {
+				hour = '0' + hour
+			} else if(minute < 10) {
+				minute = '0' + minute
+			} else if(second < 10) {
+				second = '0' + second
+			}
+			span.innerHTML = year + '年' + (month + 1) + '月' + day + '号' + hour + ':' + minute + ':' + second
+			title.style.color = 'lightgray'
+			title.innerHTML = '你还可以输入' + count + '个字'
+			count = 140 - textareas.value.length;
+			if(count >= 0 && count <= 140) {
+				title.innerHTML = '你还可以输入' + count + '个字'
+			} else {
+				title.innerHTML = '你不可以输入字啦'
+			}
+		}
+		//3.
+		eye.onclick = function() {
+			setInterval(start, 30)
+			}
+		//4.按钮
+		buttons.onclick=function(){
+			
+			if(textareas.value.length<=0||textareas.value.length>=140){
+				textareas.placeholder='请输入1-140字'
+			}else{
+				var ele=box.cloneNode(true)
+				var ele1=ele.firstElementChild
+				var ele2=ele1.nextElementSibling
+				var ele3=ele2.nextElementSibling
+				console.log(ele1,ele2,ele3);
+				ele2.style.display = "block";
+				textareas.value = "";
+				stage.insertBefore(ele, stage.childNodes[2]);
+				ele1.disabled = "disabled";
+				ele3.onclick = function () {
+					ele.remove(ele);
+				}
+				ele.style.marginTop='10px'
+				ele.onmouseover = function() {
+					ele3.style.display = "block";
+				}
+				ele.onmouseout = function() {
+					ele3.style.display = "none";
+				}
+			}
+		}
+		
+		
+	</script>
+
+</html>

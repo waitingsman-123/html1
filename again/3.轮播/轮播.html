@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#stage {
+				width: 750px;
+				height: 500px;
+				overflow: hidden;
+				position: relative;
+				border: 1px solid red;
+			}
+			
+			#box {
+				height: 500px;
+				position: absolute;
+				
+			}
+			
+			#box>div {
+				width: 750px;
+				height: 500px;
+				float: left;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="stage">
+			<div id="box">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<div id="button1">
+			<input type="button" value="上一张" id="last"/>
+			<input type="button" value="下一张" id="next"/>
+		</div>
+		<div id="button2">
+			<input type="button" value="第1张" id="1"/>
+			<input type="button" value="第2张"  id="2"/>
+			<input type="button" value="第3张"  id="3"/>
+			<input type="button" value="第4张"  id="4"/>
+			<input type="button" value="第5张"  id="5"/>
+			<input type="button" value="第6张"  id="6"/>
+			<input type="button" value="第7张"  id="7"/>
+			<input type="button" value="第8张"  id="8"/>
+
+		</div>
+	</body>
+	<script src="tween.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var stage = document.getElementById('stage')
+		var box = document.getElementById('box')
+		var divs = document.querySelectorAll('#box>div')
+		var last=document.getElementById("last");
+		var next=document.getElementById("next");
+		var buttons=document.querySelectorAll("#button2>input");
+		
+		box.style.width = divs[0].offsetWidth * divs.length + 'px'
+		var timer = null
+		var m = 0
+		for(var i = 0; i < divs.length; i++) {
+			divs[i].style.backgroundImage = 'url(img/' + (i + 1) + '.jpg)'
+			buttons[i].onclick=function (){
+				m=this.id-1
+				init()
+				changeImg()
+			}
+		}
+		//1.
+		function init() {
+			
+			var t = 0
+			var b = box.offsetLeft
+			var c = -divs[0].offsetWidth * m - b
+			var d = 50
+			clearInterval(timer)
+			timer = setInterval(function() {
+				t++
+				if(t >= d) {
+					clearInterval(timer)
+				}
+				box.style.left = Tween.Linear(t, b, c, d) + 'px'
+
+			}, 30)
+		}
+		//2.
+		function nextImg() {
+			m++
+			if(m == divs.length) {
+				m = 0
+			}
+		}
+		//3.
+		var autoplay = setInterval(function() {
+				nextImg()
+				init()
+			}, 3000)
+			//4.
+		function resets() {
+			clearInterval(autoplay)
+			autoplay = setInterval(function() {
+				nextImg()
+				init()
+			},2000)
+		}
+		//5.
+		next.onclick=function(){
+			nextImg()
+			init()
+			resets()
+		}
+		//6.
+		last.onclick=function(){
+			m--
+			if(m<0){
+				m=divs.length-1
+			}
+			init()
+			resets()
+		}
+			
+		
+	</script>
+
+</html>

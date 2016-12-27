@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.wrap img {
+				/*display: none;*/
+			}
+		</style>
+		<script src="js/JQuery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="wrap"></div>
+	</body>
+	<script type="text/javascript">
+		function createImg(url) {
+			// img对象相对于body中的img标签名
+			var img = new Image();
+			// 给img对象一个src，它就会去请求图片
+			img.src = url;
+			// img.onload只是代表图片请求完后，可以干哪些事
+			img.onload = function() {
+				// 如果未添加到页面上，可以通过对象获得图片宽高
+				console.log(this.width, this.height);
+				
+				$(img).appendTo($('.wrap'));
+				// 获取的是img标签的宽高(等于图片的宽高)
+				// img标签宽高由内容(图片)撑开
+				// 获得的是标签属性，必须添加到DOM中
+				var w = $(img).width();
+				var h = $(img).height();
+				console.log(w, h);
+			}
+		}
+		
+		createImg("http://img1.3lian.com/2015/w7/67/d/84.jpg")
+		createImg("http://img3.fengniao.com/forum/attachpics/812/145/32468873_1024.jpg")
+		createImg("http://img.xmfish.com/attachment/photo/Mon_1308/92723_af471375608691692083a84bcbb41.jpg")
+		
+	</script>
+</html>
